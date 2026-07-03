@@ -1,64 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Photo & Video Studio</title>
-
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Photo & Video Studio</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-  <h1>🎨 AI Photo & Video Studio</h1>
-  <p>Edit Photos & Videos with AI</p>
+<h1>🎨 AI Photo & Video Studio</h1>
+<p>Edit Photos & Videos Like a Pro</p>
 </header>
 
-<section>
-  <h2>Welcome</h2>
-  <a href="editor.html">
-<button>🚀 Get Started</button>
-  </a>
+<section class="card">
 
-  <button onclick="showMessage()">🚀 Get Started</button>
-</section>
+<h2>📷 Photo Editor</h2>
 
-<hr>
-
-<section>
-  <h2>📷 Photo Editing</h2>
-  <input type="file" accept="image/*" onchange="previewImage(event)">
+<input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
 
 <br><br>
 
-<img id="preview" width="300" style="display:none;border-radius:10px;">
-</section>
+<img id="preview" src="" style="max-width:100%;display:none;border-radius:10px;">
+
+<br><br>
+
+<div class="tools">
+
+<button onclick="rotateLeft()">⤺ Rotate Left</button>
+
+<button onclick="rotateRight()">⤻ Rotate Right</button>
+
+<button onclick="zoomIn()">🔍 Zoom In</button>
+
+<button onclick="zoomOut()">🔎 Zoom Out</button>
+
+</div>
 
 <br>
 
-<section>
-  <h2>🎥 Video Editing</h2>
-  <input type="file" accept="video/*">
+<label>Brightness</label>
+<input type="range" id="brightness" min="50" max="150" value="100" oninput="updateFilters()">
+
+<label>Contrast</label>
+<input type="range" id="contrast" min="50" max="150" value="100" oninput="updateFilters()">
+
+<label>Saturation</label>
+<input type="range" id="saturation" min="0" max="200" value="100" oninput="updateFilters()">
+
+<br><br>
+
+<button onclick="downloadImage()">⬇ Download Image</button>
+
+<button onclick="resetImage()">🔄 Reset</button>
+
 </section>
-
-<hr>
-
-<section>
-  <h2>✨ Features</h2>
-  <ul>
-    <li>AI Photo Enhance</li>
-    <li>Background Remove</li>
-    <li>AI Image Generator</li>
-    <li>Video Enhancement</li>
-    <li>One Click Download</li>
-  </ul>
-</section>
-
-<hr>
 
 <footer>
-  <p>© 2026 AI Photo & Video Studio</p>
+<p>© 2026 AI Photo & Video Studio</p>
+<p><b>Editing by Ashish Kumar, Security Guard</b></p>
 </footer>
 
 <script src="script.js"></script>
