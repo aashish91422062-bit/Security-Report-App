@@ -26,7 +26,11 @@
 
 <section>
   <h2>📷 Photo Editing</h2>
-  <input type="file" accept="image/*">
+  <input type="file" accept="image/*" onchange="previewImage(event)">
+
+<br><br>
+
+<img id="preview" width="300" style="display:none;border-radius:10px;">
 </section>
 
 <br>
