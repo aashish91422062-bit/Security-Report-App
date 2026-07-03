@@ -1,133 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Photo & Video Studio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Photo & Video Studio</title>
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:#0f172a;
-color:white;
-}
-
-header{
-background:#111827;
-padding:20px;
-text-align:center;
-}
-
-header h1{
-font-size:32px;
-color:#00e5ff;
-}
-
-.hero{
-padding:40px 20px;
-text-align:center;
-}
-
-.hero h2{
-font-size:28px;
-margin-bottom:15px;
-}
-
-.hero p{
-color:#ccc;
-margin-bottom:20px;
-}
-
-.btn{
-background:#00bcd4;
-padding:15px 30px;
-border-radius:8px;
-text-decoration:none;
-color:white;
-display:inline-block;
-font-weight:bold;
-}
-
-.features{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-padding:30px;
-}
-
-.box{
-background:#1e293b;
-padding:20px;
-border-radius:12px;
-text-align:center;
-}
-
-footer{
-background:#111827;
-padding:20px;
-text-align:center;
-margin-top:30px;
-}
-</style>
-
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-<h1>AI Photo & Video Studio</h1>
-<p>Edit Photos & Videos with AI</p>
+  <h1>🎨 AI Photo & Video Studio</h1>
+  <p>Edit Photos & Videos with AI</p>
 </header>
 
-<section class="hero">
-<h2>Professional AI Editing Platform</h2>
-<p>Upload, Edit, Enhance and Create Amazing Content.</p>
+<section>
+  <h2>Welcome</h2>
+  <p>Create amazing photos and videos using AI tools.</p>
 
-<a href="#" class="btn">Start Editing</a>
+  <button onclick="showMessage()">🚀 Get Started</button>
 </section>
 
-<section class="features">
+<hr>
 
-<div class="box">
-<h3>📷 Photo Editing</h3>
-<p>Crop, Resize, Filters, Color Correction</p>
-</div>
-
-<div class="box">
-<h3>🎥 Video Editing</h3>
-<p>Trim, Merge, Effects and Export</p>
-</div>
-
-<div class="box">
-<h3>🤖 AI Background Remove</h3>
-<p>Remove Background in One Click</p>
-</div>
-
-<div class="box">
-<h3>✨ AI Image Enhance</h3>
-<p>Improve Photo Quality Instantly</p>
-</div>
-
-<div class="box">
-<h3>🖼️ AI Image Generator</h3>
-<p>Create Images from Text Prompt</p>
-</div>
-
-<div class="box">
-<h3>🎬 Reels & Shorts</h3>
-<p>Create Social Media Videos</p>
-</div>
-
+<section>
+  <h2>📷 Photo Editing</h2>
+  <input type="file" accept="image/*">
 </section>
+
+<br>
+
+<section>
+  <h2>🎥 Video Editing</h2>
+  <input type="file" accept="video/*">
+</section>
+
+<hr>
+
+<section>
+  <h2>✨ Features</h2>
+  <ul>
+    <li>AI Photo Enhance</li>
+    <li>Background Remove</li>
+    <li>AI Image Generator</li>
+    <li>Video Enhancement</li>
+    <li>One Click Download</li>
+  </ul>
+</section>
+
+<hr>
 
 <footer>
-© 2026 AI Photo & Video Studio | Developed by Ashish Kumar
+  <p>© 2026 AI Photo & Video Studio</p>
 </footer>
 
+<script src="script.js"></script>
+
 </body>
-  </html>
+</html>
