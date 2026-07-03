@@ -1,111 +1,46 @@
-const canvas = new fabric.Canvas("canvas");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Photo Editor</title>
 
-let imgObj = null;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
 
-// LOAD IMAGE
-function loadImage(event) {
-    const file = event.target.files[0];
-    if (!file) return;
+<body>
 
-    const reader = new FileReader();
+<h2>🎨 AI Photo Editor</h2>
 
-    reader.onload = function(e) {
-        fabric.Image.fromURL(e.target.result, function(img) {
+<input type="file" accept="image/*" onchange="loadImage(event)">
 
-            canvas.clear();
+<br><br>
 
-            imgObj = img;
+<canvas id="canvas" width="900" height="600"
+style="border:2px solid #000;background:#fff;"></canvas>
 
-            img.set({
-                left: 100,
-                top: 50,
-                scaleX: 0.5,
-                scaleY: 0.5
-            });
+<br><br>
 
-            canvas.add(img);
-            canvas.setActiveObject(img);
-            canvas.renderAll();
-        });
-    };
+<button onclick="rotateLeft()">⤺ Rotate</button>
+<button onclick="rotateRight()">⤻ Rotate</button>
+<button onclick="zoomIn()">➕ Zoom</button>
+<button onclick="zoomOut()">➖ Zoom</button>
+<button onclick="downloadImage()">⬇ Download</button>
+<button onclick="resetImage()">🔄 Reset</button>
 
-    reader.readAsDataURL(file);
-}
+<br><br>
 
-// ROTATE LEFT
-function rotateLeft() {
-    const obj = canvas.getActiveObject();
-    if (!obj) return;
+<label>Brightness</label>
+<input type="range" id="brightness" min="50" max="150" value="100" oninput="updateFilters()">
 
-    obj.rotate(obj.angle - 90);
-    canvas.renderAll();
-}
+<label>Contrast</label>
+<input type="range" id="contrast" min="50" max="150" value="100" oninput="updateFilters()">
 
-// ROTATE RIGHT
-function rotateRight() {
-    const obj = canvas.getActiveObject();
-    if (!obj) return;
+<label>Saturation</label>
+<input type="range" id="saturation" min="0" max="200" value="100" oninput="updateFilters()">
 
-    obj.rotate(obj.angle + 90);
-    canvas.renderAll();
-}
+<script src="script.js"></script>
 
-// ZOOM IN
-function zoomIn() {
-    canvas.setZoom(canvas.getZoom() + 0.1);
-}
-
-// ZOOM OUT
-function zoomOut() {
-    canvas.setZoom(Math.max(0.2, canvas.getZoom() - 0.1));
-}
-
-// RESET
-function resetImage() {
-    canvas.clear();
-    canvas.setZoom(1);
-}
-
-// FILTERS
-function updateFilters() {
-    const obj = canvas.getActiveObject();
-    if (!obj) return;
-
-    const brightness = document.getElementById("brightness").value;
-    const contrast = document.getElementById("contrast").value;
-    const saturation = document.getElementById("saturation").value;
-
-    obj.filters = [
-        new fabric.Image.filters.Brightness({
-            brightness: (brightness - 100) / 100
-        }),
-        new fabric.Image.filters.Contrast({
-            contrast: (contrast - 100) / 100
-        }),
-        new fabric.Image.filters.Saturation({
-            saturation: (saturation - 100) / 100
-        })
-    ];
-
-    obj.applyFilters();
-    canvas.renderAll();
-}
-
-// DOWNLOAD (100% FIXED)
-function downloadImage() {
-    canvas.discardActiveObject();
-    canvas.renderAll();
-
-    const dataURL = canvas.toDataURL({
-        format: "png",
-        multiplier: 2
-    });
-
-    const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = "AI-Photo-Studio.png";
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+</body>
+    </html>
