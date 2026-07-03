@@ -1,108 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Photo Editor</title>
+// SAFE CANVAS INIT (important fix)
+const canvas = new fabric.Canvas("canvas", {
+    preserveObjectStacking: true,
+    selection: true
+});
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
-<link rel="stylesheet" href="style.css">
-</head>
+let activeImg = null;
 
-<body>
+function loadImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
 
-<header>
-<h1>🎨 AI Photo Editor</h1>
-<p>Professional Image Editor</p>
-</header>
+    const reader = new FileReader();
 
-<div class="card">
+    reader.onload = function(e) {
+        fabric.Image.fromURL(e.target.result, function(img) {
 
-<input type="file" accept="image/*" onchange="loadImage(event)">
+            canvas.clear();
 
-<br><br>
+            activeImg = img;
 
-<canvas id="canvas" width="900" height="600"
-style="border:2px solid #00c6ff;border-radius:12px;background:white;"></canvas>
+            img.set({
+                left: 100,
+                top: 50,
+                scaleX: 0.5,
+                scaleY: 0.5,
+                selectable: true
+            });
 
-<br><br>
+            canvas.add(img);
+            canvas.setActiveObject(img);
+            canvas.renderAll();
+        }, { crossOrigin: 'anonymous' });
+    };
 
-<div class="tools">
+    reader.readAsDataURL(file);
+}
 
-<button onclick="rotateLeft()">⤺ Rotate Left</button>
-<button onclick="rotateRight()">⤻ Rotate Right</button>
-<button onclick="zoomIn()">➕ Zoom In</button>
-<button onclick="zoomOut()">➖ Zoom Out</button>
-<button onclick="resetImage()">🔄 Reset</button>
+// ROTATE SAFE
+function rotateLeft() {
+    const obj = canvas.getActiveObject();
+    if (!obj) return;
+
+    obj.rotate((obj.angle || 0) - 90);
+    canvas.renderAll();
+}
+
+function rotateRight() {
+    const obj = canvas.getActiveObject();
+    if (!obj) return;
+
+    obj.rotate((obj.angle || 0) + 90);
+    canvas.renderAll();
+}
+
+// ZOOM SAFE
+function zoomIn() {
+    let zoom = canvas.getZoom();
+    canvas.setZoom(zoom + 0.1);
+}
+
+function zoomOut() {
+    let zoom = canvas.getZoom();
+    canvas.setZoom(Math.max(0.2, zoom - 0.1));
+}
+
+// RESET SAFE
+function resetImage() {
+    canvas.clear();
+    canvas.setZoom(1);
+    activeImg = null;
+}
+
+// FILTER SAFE (no crash)
+function updateFilters() {
+    const obj = canvas.getActiveObject();
+    if (!obj) return;
+
+    const b = (document.getElementById("brightness").value - 100) / 100;
+    const c = (document.getElementById("contrast").value - 100) / 100;
+    const s = (document.getElementById("saturation").value - 100) / 100;
+
+    obj.filters = [
+        new fabric.Image.filters.Brightness({ brightness: b }),
+        new fabric.Image.filters.Contrast({ contrast: c }),
+        new fabric.Image.filters.Saturation({ saturation: s })
+    ];
+
+    obj.applyFilters();
+    canvas.renderAll();
+}
+
+// 🔥 FINAL DOWNLOAD (100% WORKING FIX)
 function downloadImage() {
     canvas.discardActiveObject();
     canvas.renderAll();
 
     const dataURL = canvas.toDataURL({
         format: "png",
-        multiplier: 3   // ultra HD quality
+        multiplier: 3   // HD export
     });
 
-    try {
-        const a = document.createElement("a");
-        a.href = dataURL;
-        a.download = "AI-Photo-Studio.png";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    } catch (e) {
-        // fallback for mobile browsers
-        const newWindow = window.open();
-        newWindow.document.write('<img src="' + dataURL + '" />');
-    }
-}
-    canvas.discardActiveObject();
-    canvas.renderAll();
+    // METHOD 1 (normal browsers)
+    const a = document.createElement("a");
+    a.href = dataURL;
+    a.download = "AI-Photo-Editor.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 
-    // Safe export
-    const dataURL = canvas.toDataURL({
-        format: "png",
-        multiplier: 2
-    });
-
-    // Method 1: normal download
-    const link = document.createElement("a");
-    link.href = dataURL;
-    link.download = "AI-Photo.png";
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Method 2: fallback (mobile fix)
+    // METHOD 2 (mobile fallback)
     setTimeout(() => {
-        if (!link.download) {
-            window.open(dataURL);
+        if (!a.download) {
+            const w = window.open();
+            w.document.write('<img src="' + dataURL + '" />');
         }
     }, 300);
 }
-
-</div>
-
-<br>
-
-<label>Brightness</label>
-<input type="range" id="brightness" min="50" max="150" value="100" oninput="updateFilters()">
-
-<label>Contrast</label>
-<input type="range" id="contrast" min="50" max="150" value="100" oninput="updateFilters()">
-
-<label>Saturation</label>
-<input type="range" id="saturation" min="0" max="200" value="100" oninput="updateFilters()">
-
-</div>
-
-<footer>
-<p>© 2026 AI Photo Editor</p>
-<p><b>Editing by Ashish Kumar, Security Guard</b></p>
-</footer>
-
-<script src="editor.js"></script>
-
-</body>
-</html>
