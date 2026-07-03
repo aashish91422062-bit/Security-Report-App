@@ -38,6 +38,27 @@ function downloadImage() {
     canvas.discardActiveObject();
     canvas.renderAll();
 
+    const dataURL = canvas.toDataURL({
+        format: "png",
+        multiplier: 3   // ultra HD quality
+    });
+
+    try {
+        const a = document.createElement("a");
+        a.href = dataURL;
+        a.download = "AI-Photo-Studio.png";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } catch (e) {
+        // fallback for mobile browsers
+        const newWindow = window.open();
+        newWindow.document.write('<img src="' + dataURL + '" />');
+    }
+}
+    canvas.discardActiveObject();
+    canvas.renderAll();
+
     // Safe export
     const dataURL = canvas.toDataURL({
         format: "png",
