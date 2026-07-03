@@ -34,7 +34,32 @@ style="border:2px solid #00c6ff;border-radius:12px;background:white;"></canvas>
 <button onclick="zoomIn()">➕ Zoom In</button>
 <button onclick="zoomOut()">➖ Zoom Out</button>
 <button onclick="resetImage()">🔄 Reset</button>
-<button onclick="downloadImage()">⬇ Download</button>
+function downloadImage() {
+    canvas.discardActiveObject();
+    canvas.renderAll();
+
+    // Safe export
+    const dataURL = canvas.toDataURL({
+        format: "png",
+        multiplier: 2
+    });
+
+    // Method 1: normal download
+    const link = document.createElement("a");
+    link.href = dataURL;
+    link.download = "AI-Photo.png";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Method 2: fallback (mobile fix)
+    setTimeout(() => {
+        if (!link.download) {
+            window.open(dataURL);
+        }
+    }, 300);
+}
 
 </div>
 
