@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AshCore AI Chat</title>
+
+<link rel="stylesheet" href="chat.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header class="chat-header">
+
+<button id="menuBtn">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+<div class="chat-logo">
+
+<div class="logo-icon">🤖</div>
+
+<div class="logo-text">
+
+<h2>AshCore AI</h2>
+
+<p>Your Personal AI Assistant</p>
+
+</div>
+
+</div>
+
+<button id="newChatBtn">
+
+<i class="fa-solid fa-pen-to-square"></i>
+
+</button>
+
+</header>
+
+<nav id="sideMenu" class="side-menu">
+
+<div class="menu-header">
+
+<h2>AshCore AI</h2>
+
+<button id="closeMenu">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<a href="index.html">
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</a>
+
+<a href="chat.html">
+
+<i class="fa-solid fa-comments"></i>
+
+AI Chat
+
+</a>
+
+<a href="dashboard.html">
+
+<i class="fa-solid fa-chart-line"></i>
+
+Dashboard
+
+</a>
+
+<a href="admin.html">
+
+<i class="fa-solid fa-user-shield"></i>
+
+Admin Panel
+
+</a>
+
+</nav>
+
+<div id="overlay"></div>
+
+<main class="chat-main">
+
+<div id="chatBox" class="chat-box">
+
+<div class="ai-message">
+
+👋 Hello Ashish!
+
+<br><br>
+
+Welcome to <strong>AshCore AI</strong>.
+
+<br><br>
+
+How can I help you today?
+
+</div>
+<div class="typing-area" id="typingArea" style="display:none;">
+
+<div class="typing-avatar">🤖</div>
+
+<div class="typing-text">
+
+<span></span>
+<span></span>
+<span></span>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+<section class="chat-input-area">
+
+<button id="voiceBtn" class="icon-btn">
+
+<i class="fa-solid fa-microphone"></i>
+
+</button>
+
+<input
+type="text"
+id="userInput"
+placeholder="Message AshCore AI..."
+autocomplete="off">
+
+<button id="sendBtn" class="send-btn">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+</button>
+
+  </section>
+  <footer class="chat-footer">
+
+<p>
+AshCore AI can make mistakes. Please verify important information.
+</p>
+
+</footer>
+
+<script src="chat.js"></script>
+
+</body>
+
+</html>
